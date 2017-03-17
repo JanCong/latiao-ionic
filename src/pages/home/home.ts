@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
+import { AppGlobal } from '../../app/app.global';
+
 import { DetailPage } from '../detail/detail';
 
 import { Picture } from '../../models/picture';
+import { Article } from '../../models/article';
 import { PictureService } from '../../services/picture.service';
+import { ArticleService } from '../../providers/article-service';
 
 
 //import * as AV from 'leancloud-jssdk';
@@ -14,17 +18,29 @@ import { PictureService } from '../../services/picture.service';
     templateUrl: 'home.html'
 })
 export class HomePage implements OnInit {
+    page: number = 1;
+    size: number = AppGlobal.getInstance().pageSize;
+
     pictures: Picture[];
-    test: Picture[];
+    articles: Article[];
 
     constructor(
         public navCtrl: NavController,
-        private pictureService: PictureService
+        private pictureService: PictureService,
+        private articleService: ArticleService
     ) { }
 
     ngOnInit(): void {
-        this.getPictures();
+        //this.getPictures();
+        this.getArticles();
     }
+
+    getArticles(): void {
+        this.articleService.getArticles(this.page, this.size).then(articles => {
+            this.articles = articles["list"] as Article[];
+        });
+    }
+
 
     getPictures(): void {
         this.pictureService.getPictures()
@@ -38,6 +54,14 @@ export class HomePage implements OnInit {
     }
 
     doRefresh(refresher): void {
+        this.page = 1;
+
+        this.articleService.getArticles(this.page, this.size, null, null)
+            .then(articles => {
+                this.articles = articles["list"] as Article[];
+                refresher.complete();
+            });
+
         this.pictureService.getPictures()
             .then(pictures => {
                 this.pictures = pictures;

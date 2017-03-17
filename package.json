@@ -1,6 +1,6 @@
 {
-  "name": "wuliao-a",
-  "author": "Ionic Framework",
+  "name": "latiao",
+  "author": "Scallion",
   "homepage": "http://ionicframework.com/",
   "private": true,
   "scripts": {
@@ -44,5 +44,5 @@
       "locator": "ios"
     }
   ],
-  "description": "WuliaoA: An Ionic project"
+  "description": "Latiao: An Ionic project"
 }

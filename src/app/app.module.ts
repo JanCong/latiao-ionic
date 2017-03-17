@@ -10,6 +10,7 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { DetailPage } from '../pages/detail/detail';
 
+import { ArticleService } from '../providers/article-service'
 import { PictureService } from '../services/picture.service';
 import { CommentService } from '../services/comment.service';
 
@@ -37,6 +38,6 @@ import { CommentService } from '../services/comment.service';
     DetailPage,
     TabsPage
   ],
-  providers: [PictureService, CommentService]
+  providers: [ArticleService, PictureService, CommentService]
 })
 export class AppModule { }
