@@ -1,0 +1,58 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            无聊啊
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content #content>
+    <ion-card>
+        <ion-card-content *ngIf="picture.text">
+            <p>{{picture.text}}</p>
+        </ion-card-content>
+        <img *ngFor="let image of picture.images" [src]="image">
+        <ion-item>
+            <button primary clear item-left>
+                <ion-icon name="thumbs-up"></ion-icon>
+                <div *ngIf="!picture.likes" >0 喜欢</div>
+                <div *ngIf="picture.likes" >{{picture.likes}} 喜欢</div>
+            </button>
+            <button primary clear item-left>
+                <ion-icon name="text"></ion-icon>
+                 <div *ngIf="!picture.commentCount">0 吐槽</div>
+                 <div *ngIf="picture.commentCount">{{picture.commentCount}} 吐槽</div>
+             </button>
+            <ion-note item-right>
+                {{picture.updatedAt | date:'yyyy-MM-dd'}}
+            </ion-note>
+        </ion-item>
+    </ion-card>
+    <ion-list>
+        <ion-list-header>
+            <div *ngIf="!picture.commentCount">0 吐槽</div>
+            <div *ngIf="picture.commentCount">{{picture.commentCount}} 吐槽</div>
+        </ion-list-header>
+        <ion-item *ngFor="let comment of comments">
+            <ion-avatar item-left>
+                <img *ngIf="!comment.avatar" src="https://tse2.mm.bing.net/th?id=OIP.M5ee17585b67e1eb4aac619da7563bed7o0&pid=15.1">
+                <img *ngIf="comment.avatar" [src]="comment.avatar">
+            </ion-avatar>
+            <h6>{{comment.author}}</h6>
+            <p>{{comment.text}}</p>
+            <p item-right>
+                {{comment.createdAt | date:'yyyy-MM-dd'}}
+            </p>
+            <img *ngFor="let img of comment.images" [src]="image">
+        </ion-item>
+    </ion-list>
+</ion-content>
+<ion-footer [keyboardAttach]="content">
+    <ion-toolbar>
+        <ion-input placeholder="吐槽" clearInput [(ngModel)]="commentText"></ion-input>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="addComment()">
+				<ion-icon name="send"></ion-icon>
+      		</button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>

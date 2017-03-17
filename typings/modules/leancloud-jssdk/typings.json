@@ -1,0 +1,10 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/leancloud/typed-leancloud-jssdk/fc9730eead531f6461b0d0ae4323263b3e498798/typings.json",
+    "raw": "registry:npm/leancloud-jssdk#1.0.0-rc8+20160526222541",
+    "main": "index.d.ts",
+    "version": "1.0.0-rc8",
+    "name": "typed-leancloud-jssdk"
+  }
+}

@@ -1,0 +1,41 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>无聊啊</ion-title>
+        <!-- <ion-buttons end>
+            <button ion-button icon-only (click)="uploadPictures()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+        </ion-buttons> -->
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="card-background-page">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="再拉下试试？" refreshingSpinner="circles" refreshingText="努力加载中...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <ion-card *ngFor="let picture of pictures">
+        <ion-card-content tappable *ngIf="picture.text" (click)="gotoDetailPage(picture)">
+            <p>{{picture.text}}</p>
+        </ion-card-content>
+        <img tappable *ngFor="let image of picture.images" [src]="image" (click)="gotoDetailPage(picture)">
+        <ion-item>
+            <button primary clear item-left>
+                <ion-icon name="thumbs-up"></ion-icon>
+                <div *ngIf="!picture.likes" >0 喜欢</div>
+                <div *ngIf="picture.likes" >{{picture.likes}} 喜欢</div>
+            </button>
+            <button primary clear item-left (click)="gotoDetailPage(picture)">
+                <ion-icon name="text"></ion-icon>
+                 <div *ngIf="!picture.commentCount">0 吐槽</div>
+                 <div *ngIf="picture.commentCount">{{picture.commentCount}} 吐槽</div>
+             </button>
+            <ion-note item-right>
+                {{picture.createdAt | date:'yyyy-MM-dd'}}
+            </ion-note>
+        </ion-item>
+    </ion-card>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="努力加载中..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>
