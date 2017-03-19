@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { AppGlobal } from '../app/app.global';
@@ -18,10 +18,15 @@ export class ArticleService {
   constructor(private http: Http) {
   }
 
-  getArticles() {
+  getArticles(page: number, size: number, sinceId?: string, maxId?: string): Promise<{}> {
     return new Promise(resolve => {
-      this.http.get(AppGlobal.getInstance().server + AppGlobal.getInstance().apiUrl + '/article/timeline/1/20')
-        .map(res => res.json())
+      let params = new URLSearchParams();
+      params.set('sinceId', sinceId);
+      params.set('maxId', maxId);
+
+      this.http.get(AppGlobal.getInstance().server + AppGlobal.getInstance().apiUrl + '/article/timeline/1/20', {
+        search: params
+      }).map(res => res.json())
         .subscribe(data => {
           resolve(data);
         },

@@ -56,7 +56,7 @@ export class HomePage implements OnInit {
     doRefresh(refresher): void {
         this.page = 1;
 
-        this.articleService.getArticles(this.page, this.size, null, null)
+        this.articleService.getArticles(this.page, this.size)
             .then(articles => {
                 this.articles = articles["list"] as Article[];
                 refresher.complete();
